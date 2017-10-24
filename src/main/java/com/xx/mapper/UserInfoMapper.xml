@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace+id 必须唯一  推荐的namespace是dao接口的全路径 -->
+<mapper namespace="com.xx.dao.UserInfoDao">
+	<!-- 查询有用 -->
+	<resultMap type="UserInfo" id="resultList">
+		<!-- 把id列的值映射成对象的id属性, 属性必须区分大小写,列可以不用 -->
+		<id column="id" property="id" />
+		<result column="username" property="userName"  />
+		<result column="sex" property="sex" />
+		<result column="age" property="age" />
+		<result column="loves" property="loves" typeHandler="com.xx.dao.typehandler.MyTypeHandler" />
+	</resultMap>
+		<!-- 
+	<select id="findAllUsers" resultMap="resultListUser">
+		select * from users
+	</select>
+	<select id="findUsersById" parameterType="int" resultMap="resultListUser">
+		select * from users where id =#{id}
+	</select>
+	<insert id="addUsers" parameterType="Users">
+		insert into users(id,name,age,birthday)values(#{id},#{name},#{age},#{birthday});
+	</insert>
+	<delete id="deleteUsersById" parameterType="int">
+		delete from users where id=#{id}
+	</delete>
+	<update id="updateUsers" parameterType="Users">
+		update users set name=#{name},age=#{age},birthday=#{birthday} where id=#{id}
+	</update>
+	 -->
+	<select id="selectUser" resultMap="resultList">
+		select * from userinfo
+	</select>
+	<insert id="addUser" >
+		insert into userinfo(id,username,age,sex,loves)values(#{id},#{userName},#{age},#{sex},#{loves,typeHandler=com.xx.dao.typehandler.MyTypeHandler});
+	</insert>
+	<delete id="delUserById" >
+		delete from userinfo where id=#{id}
+	</delete>
+	<select id="selectUserById" resultMap="resultList">
+		select * from userinfo where id=#{id}
+	</select>
+	<update id="updateUser" >
+		update userinfo set username=#{userName},age=#{age},sex=#{sex},loves=#{loves,typeHandler=com.xx.dao.typehandler.MyTypeHandler}  where id=#{id}
+	</update>
+</mapper>
